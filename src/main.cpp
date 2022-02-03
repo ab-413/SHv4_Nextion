@@ -33,7 +33,7 @@ boolean need_send = false;
 //----------------------------------Адреса узлов с сети-------------------------------
 const uint16_t base_node = 00;  // Базовый узел
 const uint16_t this_node = 01;  // Этот узел
-const uint16_t cont_node = 02;  // Контейнер узел
+// const uint16_t cont_node = 02;  // Контейнер узел
 
 //----------------------------------   -------------------------------
 NexTouch *nex_listen_list[] =
@@ -108,11 +108,22 @@ void bt2PopCallback(void *ptr)
 
 void sendDatatoNext()   // Отправка данных на дисплей
 {
-  t5.setFloatText(data.t2, 1);
-  t6.setFloatText(data.t1, 1);
-  t7.setFloatText(data.t3, 1);
-  t8.setFloatText(data.t4, 1);
-  t14.setFloatText(data.t5, 1);
+  char t1str[8];
+  dtostrf(data.t1, 5, 1, t1str);
+  char t2str[8];
+  dtostrf(data.t2, 5, 1, t2str);
+  char t3str[8];
+  dtostrf(data.t3, 5, 1, t3str);
+  char t4str[8];
+  dtostrf(data.t4, 5, 1, t4str);
+  char t5str[8];
+  dtostrf(data.t5, 5, 1, t5str);
+
+  t5.setText(t1str);
+  t6.setText(t2str);
+  t7.setText(t3str);
+  t8.setText(t4str);
+  t14.setText(t5str);
 
   j0.setValue(data.w1);
 
@@ -127,7 +138,8 @@ void setup(void)
   /* Инициализация nRF24 */
   SPI.begin();
   radio.begin();
-  network.begin(70, this_node);  
+  radio.setChannel(70);
+  network.begin(this_node);  
 
   /* Инициализация дисплея */
   nexInit();
