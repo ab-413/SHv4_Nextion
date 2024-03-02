@@ -64,7 +64,6 @@ struct DATA_STRUCTURE
   float t2;
   float t3;
   float t4;
-  float t5;
   uint8_t humidity;
   boolean d_pump;
   boolean u_pump;
@@ -155,8 +154,6 @@ void sendDatatoNext()   // Отправка данных на дисплей
   dtostrf(data.t3, 5, 1, t3str);
   char t4str[8];
   dtostrf(data.t4, 5, 1, t4str);
-  char t5str[8];
-  dtostrf(data.t5, 5, 1, t5str);
 
   t5.setText(t1str);
   t6.setText(t2str);
@@ -211,7 +208,7 @@ void setup(void)
   /* Инициализация nRF24 */
   SPI.begin();
   radio.begin();
-  radio.setChannel(70);
+  radio.setChannel(77);
   network.begin(this_node);  
 
   /* Инициализация дисплея */
